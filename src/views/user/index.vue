@@ -40,6 +40,11 @@
         prop="email"
         label="邮箱"
       />
+      <el-table-column label="角色">
+        <template slot-scope="{row}">
+          <el-tag v-for="(item,index) in row.roles" :key="index" size="small">{{ item.name }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="created_at"
         label="注册日期"

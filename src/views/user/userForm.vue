@@ -7,6 +7,9 @@
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="formData.email" type="text" autocomplete="off" placeholder="请输入" />
       </el-form-item>
+      <el-form-item label="角色" prop="role_ids">
+        <RoleSelect :role-ids.sync="formData.role_ids" />
+      </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="formData.password" type="password" autocomplete="off" placeholder="请输入" />
       </el-form-item>
@@ -21,17 +24,20 @@
 <script>
 import { createUser, updateUser } from '@/api/user'
 import { validUsername, validEmail, isPassword } from '@/utils/validate'
+import RoleSelect from '@/views/components/RoleSelect'
 
 const defaultFormData = {
   id: null,
   name: '',
   email: '',
+  role_ids: [],
   password: ''
 }
 
 export default {
   name: 'UserForm',
   components: {
+    RoleSelect
   },
   props: {
     dialogInfo: {
@@ -111,6 +117,12 @@ export default {
       console.log(this.dialogInfo)
       this.visible = this.dialogInfo.show
       this.formData = Object.assign({}, defaultFormData, this.dialogInfo.formData)
+      this.formData.role_ids = []
+      if (this.formData.roles) {
+        this.formData.roles.forEach(item => {
+          this.formData.role_ids.push(item.id)
+        })
+      }
     }
   },
   created() {

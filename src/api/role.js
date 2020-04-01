@@ -8,6 +8,14 @@ export function getRoleList(data) {
   })
 }
 
+export function getRoleAll(data) {
+  return request({
+    url: '/api/role/all',
+    method: 'post',
+    data
+  })
+}
+
 export function getRoleDetail(id) {
   return request({
     url: '/api/role/show/' + id,
